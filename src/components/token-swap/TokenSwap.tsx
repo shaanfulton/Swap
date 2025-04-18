@@ -82,9 +82,17 @@ export default function TokenSwap({ tokens }: TokenSwapProps) {
             </div>
             <div className="w-1/2">
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
+                pattern="^[0-9]*[.,]?[0-9]*$"
                 value={fromAmount}
-                onChange={(e) => setFromAmount(e.target.value)}
+                onChange={(e) => {
+                  // Only allow numbers and at most one decimal point
+                  const value = e.target.value;
+                  if (/^\d*\.?\d*$/.test(value)) {
+                    setFromAmount(value);
+                  }
+                }}
                 placeholder="0.00"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md 
                            bg-white dark:bg-gray-800 dark:border-gray-600"
